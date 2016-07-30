@@ -14,8 +14,6 @@ function ContractListController($scope, $element, $attrs, contractService, $comp
     // This would be loaded by $http etc.
     $ctrl.list = [];
     $ctrl.source = null;
-    $ctrl.updateHero = updateHero;
-    $ctrl.deleteHero = deleteHero;
     $ctrl.openFormWindow = openFormWindow;
 
     activate();
@@ -26,7 +24,7 @@ function ContractListController($scope, $element, $attrs, contractService, $comp
 
         $ctrl.source = new kendo.data.DataSource({
             data: [],
-            pageSize: 21
+            pageSize: 20
         });
 
         contractService.getItems().then(function (items) {
@@ -54,17 +52,6 @@ function ContractListController($scope, $element, $attrs, contractService, $comp
         });
 
         // service
-    }
-
-    function updateHero(hero, prop, value) {
-        hero[prop] = value;
-    }
-
-    function deleteHero(hero) {
-        var idx = $ctrl.list.indexOf(hero);
-        if (idx >= 0) {
-            $ctrl.list.splice(idx, 1);
-        }
     }
 
     function openFormWindow(dataItem) {
