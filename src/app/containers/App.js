@@ -4,6 +4,5 @@ module.exports = {
 };
 
 function App() {
-//  this.todos = [todos.initialTodo];
-//  this.filter = todoFilters.SHOW_ALL;
+  // App is just a top level component
 }

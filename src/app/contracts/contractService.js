@@ -33,8 +33,8 @@ function ContractService($q, $timeout) {
 
     function getItem(id) {
         return $q(function (resolve, reject) {
-            pnp.sp.web.lists.getByTitle("Heroes").items().getById(id).then(function(result){
-                
+            pnp.sp.web.lists.getByTitle("Heroes").items().getById(id).then(function (result) {
+
             });
         });
     }
@@ -45,10 +45,10 @@ function ContractService($q, $timeout) {
 
     function getList() {
         return $q(function (resolve, reject) {
-            pnp.sp.web.lists.ensure("ContractRegister","").then(function (result) {
+            pnp.sp.web.lists.ensure("ContractRegister", "").then(function (result) {
                 if (result.created) {
-                     //http://officedev.github.io/PnP-JS-Core/classes/_sharepoint_rest_fields_.fields.html#add
-                    result.list.fields.addText('Organisation').then(function(){
+                    //http://officedev.github.io/PnP-JS-Core/classes/_sharepoint_rest_fields_.fields.html#add
+                    result.list.fields.addText('Organisation').then(function () {
                         // add some demo entries
                         $q.all([
                             result.list.items.add({ Title: "Superman", 'Organisation': 'Krypton' }),

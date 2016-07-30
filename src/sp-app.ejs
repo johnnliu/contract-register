@@ -1,9 +1,7 @@
-<!-- the styles may also be loaded with webpack, but we are not 
-<link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.607/styles/kendo.common-office365.css" />
-<link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.607/styles/kendo.office365.css" />-->
-<div ng-app="app">
-  <app>Loading...</app>
-</div>
+<!-- the styles may also be loaded with webpack, but we are not -->
+<link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.607/styles/kendo.common-office365.min.css" />
+<link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.607/styles/kendo.office365.min.css" />
+
 <% if (htmlWebpackPlugin.options.window) { %>
 <script>
   <% for (var varName in htmlWebpackPlugin.options.window) { %>
@@ -17,3 +15,7 @@
 <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
 <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
 <% } %>
+
+<div ng-app="app">
+  <app>Loading...</app>
+</div>

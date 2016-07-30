@@ -43,7 +43,7 @@ function ContractFormController($scope, $element, $attrs, contractService) {
       //contractService.save();
 
       $ctrl.close();
-    }    
+    }
     else {
       $ctrl.validationMessage = "There is invalid data in the form.";
       $ctrl.validationClass = "invalid";
