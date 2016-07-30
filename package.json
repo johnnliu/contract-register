@@ -1,0 +1,43 @@
+{
+  "name": "contract-register",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "jquery": "^2.2.4",
+    "kendo": "https://johnnliu%40gmail.com:WZpv3HrjneSN@bower.telerik.com/npm-kendo-ui.git",
+    "kendo-ui-core": "^2016.2.607",
+    "sp-pnp-js": "1.0.0"
+  },
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^2.0.0",
+    "gulp-htmlmin": "^2.0.0",
+    "gulp-insert": "^0.5.0",
+    "gulp-spsync-creds": "^2.2.1",
+    "gulp-tslint": "^4.3.2",
+    "gulp-typescript": "^2.11.0",
+    "gulp-watch": "^4.3.9",
+    "html-loader": "^0.4.3",
+    "html-webpack-plugin": "^2.22.0",
+    "imports-loader": "^0.6.5",
+    "postcss-loader": "^0.9.1",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^0.8.2",
+    "tslint": "^3.4.0",
+    "typescript": "^1.8.0",
+    "typings": "^1.0.4",
+    "url-loader": "^0.5.7",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-stream": "^3.2.0"
+  }
+}

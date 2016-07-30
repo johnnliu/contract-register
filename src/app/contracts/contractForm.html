@@ -1,0 +1,40 @@
+<div>
+    <h1>Hello Form!</h1>
+
+    The ID is {{$ctrl.contractid}}
+
+    <form kendo-validator="$ctrl.validator" ng-submit="$ctrl.validate($event)">
+
+        <p class="forms">
+            <label>Name</label>
+            <input type="text" value="" class="k-textbox" required style="width: 100%;" />
+        </p>
+        <p>
+            <label>Location</label>
+            <input type="text" value="" class="k-textbox" required style="width: 100%;" />
+        </p>
+        <p>
+            <label>Birthday</label>
+            <input kendo-date-picker style="width: 100%;" required> </input>
+        </p>
+        <p>
+            <label>Contract</label>
+            <select kendo-drop-down-list style="width: 100%;">
+                <option value="male" selected>Contract A</option>
+                <option value="female">Contract B</option>
+                <option value="notsay">Contract C</option>
+            </select>
+        </p>
+
+        <p>
+            <button kendo-button sprite-css-class="'k-icon k-i-funnel'" type="submit" ng-click="$ctrl.save()">Save</button>
+            <button kendo-button icon="'funnel-clear'" type="button" ng-click="$ctrl.dismiss()">Cancel</button>
+            <button kendo-button sprite-css-class="'k-icon k-i-refresh'" type="button"><span class="k-sprite">Refresh</span></button>
+        </p>
+
+        <p>
+            {{ $ctrl.validationMessage }}
+        </p>
+
+    </form>
+</div>

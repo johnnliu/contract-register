@@ -1,0 +1,44 @@
+var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var webpack = require('webpack');
+ 
+module.exports = {
+  cache: true,
+  entry: {
+    app: './src/',
+    vendor: ['es6-promise', 'whatwg-fetch', 'jquery', 'angular', 'kendo', 'sp-pnp-js']
+  },
+  output: {
+    path: path.join(__dirname, 'dist/SiteAssets'),
+    publicPath: '/SiteAssets/',
+    filename: '[name].js'
+  },
+ resolve: {
+    extensions: ['', '.webpack.js', '.web.js', '.ts', '.js']
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.js'),
+    new webpack.ProvidePlugin({
+      'window.jQuery': 'jquery'
+    }),
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[file].map',
+      exclude: ['vendors.js'],
+      columns: false, // no columns in SourceMaps
+      module: false / true // use SourceMaps from loaders 
+    })
+  ],
+  module: {
+    loaders: [
+      { test: /\.ts$/, loader: 'ts-loader' },
+      { test: /\.css$/, loaders: ['style','css'] },
+      { test: /\.(jpg|gif|png)/, loader: 'url-loader?limit=100000' },
+      { test: /\.(svg|woff|woff2|ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?/i, loader: 'url-loader' },
+      { test: /\.html$/, loader: 'html' }
+    ]
+  },
+  username: 'bart.bouwhuis@sharepointgurus.net',
+  password: 'noderunning',
+  site: 'https://sharepointgurus365.sharepoint.com/sites/progress/bb',
+  startFolder: 'dist'
+}

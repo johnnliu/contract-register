@@ -1,0 +1,4 @@
+/node_modules/*
+o365-*.js
+/typings/*
+/dist/*

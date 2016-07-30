@@ -1,0 +1,19 @@
+<!-- the styles may also be loaded with webpack, but we are not 
+<link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.607/styles/kendo.common-office365.css" />
+<link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.607/styles/kendo.office365.css" />-->
+<div ng-app="app">
+  <app>Loading...</app>
+</div>
+<% if (htmlWebpackPlugin.options.window) { %>
+<script>
+  <% for (var varName in htmlWebpackPlugin.options.window) { %>
+    window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
+  <% } %>
+</script>
+<% } %>
+<% for (var css in htmlWebpackPlugin.files.css) { %>
+  <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+<% } %>
+<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+<script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+<% } %>
