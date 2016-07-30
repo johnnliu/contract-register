@@ -5,14 +5,12 @@ module.exports = {
 
 var $ = require('jquery');
 var ContractForm = require('./contractForm');
-//var ContractWindowTemplate = require('./contractWindow.html');
 
 ContractListController.$inject = ['$scope', '$element', '$attrs', 'contractService', '$compile', '$kWindow'];
 function ContractListController($scope, $element, $attrs, contractService, $compile, $kWindow) {
     var $ctrl = this;
 
     // This would be loaded by $http etc.
-    $ctrl.list = [];
     $ctrl.source = null;
     $ctrl.openFormWindow = openFormWindow;
 
@@ -28,26 +26,28 @@ function ContractListController($scope, $element, $attrs, contractService, $comp
         });
 
         contractService.getItems().then(function (items) {
-            $ctrl.list = items;
             $ctrl.source.data(items);
+
             $ctrl.gridOptions = {
                 dataSource: $ctrl.source,
                 sortable: true,
-                columns: [{
-                    field: "Title",
-                    title: "Title",
-                    template: function () {
-                        return '<a ng-click="$ctrl.openFormWindow(dataItem)">{{dataItem.Title}}</a>';
-                    }
-                }, {
+                columns: [
+                    {
+                        field: "Title",
+                        title: "Title",
+                        template: function () {
+                            return '<a ng-click="$ctrl.openFormWindow(dataItem)">{{dataItem.Title}}</a>';
+                        }
+                    }, {
                         field: "Organisation",
                         title: "Organisation"
                     },
                     {
                         command: ["edit", "destroy"],
                         title: ""
-                    }]
-            }
+                    }
+                ]
+            };
 
         });
 
@@ -88,34 +88,5 @@ function ContractListController($scope, $element, $attrs, contractService, $comp
                 $scope.result = 'canceled!';
             }
         });
-        /*
-            var kendoWindowOptions = {
-                width: "505px",
-                height: "315px",
-                title: "hero:" + id,
-                actions: ["Refresh", "Maximize", "Close"]
-            };
-        
-            //var content = ContractWindowTemplate.replace("{{id}}", id);
-        
-            var templateFn = $compile(ContractForm.template);
-            var content = templateFn(ContractForm.controller);
-        
-            $('<div />')
-              .appendTo(document.body)
-              .kendoWindow(kendoWindowOptions)
-              .data('kendoWindow')
-              .content(content)
-              .center()
-              .open();
-            
-            //formWindow.data("kendoWindow").open();
-        */
     }
-}
-
-function ContractFormWindow(id) {
-    var $ctrl = this;
-
-    $ctrl.contractid = id;
 }

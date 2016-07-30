@@ -18,9 +18,10 @@ function ContractFormController($scope, $element, $attrs, contractService) {
   $ctrl.close = close;
   $ctrl.save = save;
 
-  console.log($scope);
+  activate();
 
   function activate() {
+    //TODO
     //contractService.getItem
   }
 
@@ -56,6 +57,7 @@ function ContractFormController($scope, $element, $attrs, contractService) {
     });
 
   }
+  
   function dismiss() {
     $ctrl.$dismiss({
       reason: 'cancel'
