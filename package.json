@@ -11,7 +11,6 @@
   "dependencies": {
     "angular": "^1.5.8",
     "jquery": "^2.2.4",
-    "kendo": "https://johnnliu%40gmail.com:WZpv3HrjneSN@bower.telerik.com/npm-kendo-ui.git",
     "kendo-ui-core": "^2016.2.607",
     "sp-pnp-js": "1.0.0"
   },
