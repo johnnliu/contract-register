@@ -7,7 +7,7 @@ module.exports = {
   cache: true,
   entry: {
     app: ['./src/index.js'],
-    vendor: [/*'es6-promise', */'whatwg-fetch', 'jquery', 'angular', 'kendo', 'sp-pnp-js' /*, 'kendo/css/web/kendo.common-office365.css', 'kendo/css/web/kendo.office365.css'*/]
+    vendor: ['es6-promise', 'whatwg-fetch', 'jquery', 'angular', 'kendo', 'sp-pnp-js' /*, 'kendo/css/web/kendo.common-office365.css', 'kendo/css/web/kendo.office365.css'*/]
   },
   output: {
     path: path.join(__dirname, 'dist/SiteAssets'),

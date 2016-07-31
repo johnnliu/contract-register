@@ -47,16 +47,9 @@ function ContractService($q, $timeout) {
         return $q(function (resolve, reject) {
             pnp.sp.web.lists.ensure("ContractRegister", "").then(function (result) {
                 if (result.created) {
-                    //http://officedev.github.io/PnP-JS-Core/classes/_sharepoint_rest_fields_.fields.html#add
-                    result.list.fields.addText('Organisation').then(function () {
-                        // add some demo entries
-                        $q.all([
-                            result.list.items.add({ Title: "Superman", 'Organisation': 'Krypton' }),
-                            result.list.items.add({ Title: "Batman", 'Organisation': 'WayneCorp' }),
-                            result.list.items.add({ Title: "Captain Kirk", 'Organisation': 'Starfleet' })
-                        ]).then(function () { resolve(result.list); });
-                    })
-
+                    setupContractRegister(result.list).then(function (list) {
+                        resolve(list);
+                    });
                 } else {
                     resolve(result.list);
                 }
@@ -64,5 +57,39 @@ function ContractService($q, $timeout) {
         });
     }
 
+    function setupContractRegister(list) {
+        return $q(function (resolve, reject) {
+            // http://officedev.github.io/PnP-JS-Core/classes/_sharepoint_rest_fields_.fields.html#add
+            // add contract fields
+            var batch1 = pnp.sp.createBatch();
+            $q.all([
+                //Information System Details
+                list.fields.inBatch(batch1).addText('SystemName'),
+                list.fields.inBatch(batch1).addMultilineText('InformationDescription', 8, false),
+                list.fields.inBatch(batch1).addNumber('InformationSensitivity'),
+                //Details of the third party
+                list.fields.inBatch(batch1).addText('ThirdPartyContactFullName'),
+                list.fields.inBatch(batch1).addText('ThirdPartyOrganisationName'),
+                list.fields.inBatch(batch1).addText('ThirdPartyContactEmail'),
+                //Internal Representative
+                list.fields.inBatch(batch1).add('InternalOwner', 'SP.FieldUser', { 'FieldTypeKind': 20 }),
+                //schedule period
+                list.fields.inBatch(batch1).addDateTime('ContractStartDate'),
+                list.fields.inBatch(batch1).addDateTime('ContractEndDate')
+            ]).then(function () {
+                // add some demo entries
+                $q.all([
+                    list.items.add({ Title: "Superman", 'ThirdPartyOrganisationName': 'Krypton' }),
+                    list.items.add({ Title: "Batman", 'ThirdPartyOrganisationName': 'WayneCorp' }),
+                    list.items.add({ Title: "Captain Kirk", 'ThirdPartyOrganisationName': 'Starfleet' })
+                ]).then(function () {
+                    //resolve the list like it has always been there.. 
+                    resolve(list);
+                });
+            });
 
+            batch1.execute();
+
+        });
+    }
 }
