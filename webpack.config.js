@@ -20,7 +20,8 @@ module.exports = {
   externals: {
     'jquery': 'jQuery',
     'angular': 'angular',
-    'kendo': 'kendo'
+    'kendo': 'kendo',
+    'node-fetch': '{}'
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.js'),
@@ -28,10 +29,10 @@ module.exports = {
       'window.jQuery': 'jquery'
     }),
     new HtmlWebpackPlugin({
-      filename:'SPApp.html', 
-      template:'./src/sp-app.ejs', 
-      inject:false
-    })//,
+      filename: 'SPApp.html',
+      template: './src/sp-app.ejs',
+      inject: false
+    })
     /*
     new webpack.SourceMapDevToolPlugin({
       //filename: '[file].map',
@@ -43,8 +44,8 @@ module.exports = {
   ],
   module: {
     loaders: [
-      { test: /\.ts$/, loader: 'ts-loader' },
-      { test: /\.css$/, loaders: ['style','css'] },
+      //{ test: /\.ts$/, loader: 'ts-loader' },
+      { test: /\.css$/, loaders: ['style', 'css'] },
       { test: /\.(jpg|gif|png)/, loader: 'url-loader?limit=100000' },
       { test: /\.(svg|woff|woff2|ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?/i, loader: 'url-loader' },
       { test: /\.html$/, loader: 'html' }

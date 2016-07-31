@@ -12,7 +12,7 @@
     "angular": "^1.5.8",
     "jquery": "^2.2.4",
     "kendo-ui-core": "^2016.2.607",
-    "sp-pnp-js": "1.0.0"
+    "sp-pnp-js": "^1.0.3"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",

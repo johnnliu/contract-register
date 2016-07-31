@@ -12,6 +12,8 @@ ContractFormController.$inject = ['$scope', '$element', '$attrs', 'contractServi
 function ContractFormController($scope, $element, $attrs, contractService) {
   var $ctrl = this;
 
+  $ctrl.item = null;
+
   $ctrl.activate = activate;
   $ctrl.validate = validate;
   $ctrl.dismiss = dismiss;
@@ -22,7 +24,10 @@ function ContractFormController($scope, $element, $attrs, contractService) {
 
   function activate() {
     //TODO
-    //contractService.getItem
+    contractService.getItem($ctrl.contractid).then(function (item) {
+      $ctrl.item = item;
+
+    });
   }
 
   function validate(event) {
@@ -41,9 +46,10 @@ function ContractFormController($scope, $element, $attrs, contractService) {
   function save() {
     if ($ctrl.validator.validate()) {
       //TODO
-      //contractService.save();
-
-      $ctrl.close();
+      contractService.updateItem($ctrl.item).then(function(item){
+        
+        $ctrl.close();
+      });
     }
     else {
       $ctrl.validationMessage = "There is invalid data in the form.";
@@ -57,7 +63,7 @@ function ContractFormController($scope, $element, $attrs, contractService) {
     });
 
   }
-  
+
   function dismiss() {
     $ctrl.$dismiss({
       reason: 'cancel'
