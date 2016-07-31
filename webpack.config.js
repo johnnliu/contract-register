@@ -11,7 +11,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist/SiteAssets'),
-    publicPath: '/SiteAssets/',
+    publicPath: '../SiteAssets/',
     filename: '[name].js'
   },
   resolve: {

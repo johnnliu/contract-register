@@ -6,19 +6,10 @@ let gulp = require("gulp"),
     webpack = require('webpack'),
     server = require("webpack-dev-server"),
     config = require("./webpack.config.js"),
-	o365 = require("./o365-johnliu.js"),
+	o365 = require("./o365-user.js"),
 	spsync = require('gulp-spsync-creds').sync;
 
-// gulp.task("lint", () => {
-//     return gulp.src("./src/**/*.ts")
-//         .pipe(tslint({}))
-//         .pipe(tslint.report("verbose"));
-// });
-
-gulp.task("default", ["serve"]);
-
-gulp.task("build", [/*"lint",*/ "webpack:build"]);
-//gulp.task('build', ['partials', 'lint', 'webpack:build']);
+gulp.task("build", ["webpack:build"]);
 
 gulp.task("webpack:build", function(callback) {
 	// modify some webpack config options
@@ -72,25 +63,6 @@ gulp.task("webpack:build-dev", function(callback) {
 			colors: true
 		}));
 		callback();
-	});
-});
-
-gulp.task("serve", function(callback) {
-	// modify some webpack config options
-	var serveConfig = Object.create(config);
-	serveConfig.devtool = "sourcemap";
-	serveConfig.debug = true;
-
-	// Start a webpack-dev-server
-	new server(webpack(serveConfig), {
-		publicPath: serveConfig.output.publicPath,
-		stats: {
-			colors: true
-		},
-		contentBase: "dist"
-	}).listen(8080, "localhost", function(err) {
-		if(err) throw new gutil.PluginError("serve", err);
-		gutil.log("[serve]", "http://localhost:8080/app.js");
 	});
 });
 

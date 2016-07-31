@@ -1,31 +1,58 @@
 <div>
-    <h1>Hello Form!</h1>
-
-    The ID is {{$ctrl.contractid}}
+    <h1>Contract Form</h1>
 
     <form kendo-validator="$ctrl.validator" ng-submit="$ctrl.validate($event)">
 
-        <p class="forms">
-            <label>Name</label>
-            <input type="text" class="k-textbox" ng-model="$ctrl.item.Title" required style="width: 100%;" />
-        </p>
-        <p>
-            <label>Location</label>
-            <input type="text" class="k-textbox" ng-model="$ctrl.item.ThirdPartyOrganisationName" required style="width: 100%;" />
-        </p>
-        <p>
-            <label>Contract End</label>
-            <input kendo-date-picker style="width: 100%;"> </input>
-        </p>
-        <p>
-            <label>Contract</label>
-            <select kendo-drop-down-list style="width: 100%;">
-                <option value="male" selected>Contract A</option>
-                <option value="female">Contract B</option>
-                <option value="notsay">Contract C</option>
-            </select>
-        </p>
-
+        <fieldset>
+            <legend>Contract Details</legend>
+            <p class="forms">
+                <label>Contract Type</label>
+                <select kendo-drop-down-list style="width: 100%;" g-model="$ctrl.item.Title">
+                    <option value="SAA" selected>System Access Agreement</option>
+                    <option value="NDA">Non Disclosure Agreement</option>
+                </select>
+            </p>
+            <p>
+                <label>System Name</label>
+                <input type="text" class="k-textbox" ng-model="$ctrl.item.SystemName" required style="width: 100%;" />
+            </p>
+            <p>
+                <label>Give a detailed description of the system and the information shared</label>
+                <textarea ng-model="$ctrl.item.InformationDescription" required style="width: 98%;" rows="8"></textarea>
+            </p>
+            <p>
+                <label>Start Date</label>
+                <input kendo-date-picker ng-model="$ctrl.item.ContractStartDate" required style="width: 100%;"> </input>
+            </p>
+            <p>
+                <label>End Date</label>
+                <input kendo-date-picker ng-model="$ctrl.item.ContractEndDate" required style="width: 100%;"> </input>
+            </p>
+        </fieldset>
+<br />
+        <fieldset>
+            <legend>Third Party Details</legend>
+            <p class="forms">
+                <label>Full Name</label>
+                <input type="text" class="k-textbox" ng-model="$ctrl.item.ThirdPartyContactFullName" required style="width: 100%;" />
+            </p>
+            <p>
+                <label>Organisation</label>
+                <input type="text" class="k-textbox" ng-model="$ctrl.item.ThirdPartyOrganisationName" required style="width: 100%;" />
+            </p>
+            <p>
+                <label for="email" class="required">Email</label>
+                <input type="email" id="email" name="Email" class="k-textbox" placeholder="e.g. myname@example.net" ng-model="$ctrl.item.ThirdPartyContactEmail" required data-email-msg="Email format is not valid" style="width: 100%;" />
+            </p>
+        </fieldset>
+<br />
+        <fieldset>
+            <legend>Internal Details</legend>
+            <p class="forms">
+                <label>Internal Representative</label>
+                <input type="text" class="k-textbox" style="width: 100%;" />
+            </p>
+        </fieldset>
         <p>
             <button kendo-button sprite-css-class="'k-icon k-i-funnel'" type="submit" ng-click="$ctrl.save()">Save</button>
             <button kendo-button icon="'funnel-clear'" type="button" ng-click="$ctrl.dismiss()">Cancel</button>
