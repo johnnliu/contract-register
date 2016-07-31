@@ -9,16 +9,15 @@ let gulp = require("gulp"),
 	o365 = require("./o365-johnliu.js"),
 	spsync = require('gulp-spsync-creds').sync;
 
-
-gulp.task("lint", () => {
-    return gulp.src("./src/**/*.ts")
-        .pipe(tslint({}))
-        .pipe(tslint.report("verbose"));
-});
+// gulp.task("lint", () => {
+//     return gulp.src("./src/**/*.ts")
+//         .pipe(tslint({}))
+//         .pipe(tslint.report("verbose"));
+// });
 
 gulp.task("default", ["serve"]);
 
-gulp.task("build", ["lint", "webpack:build"]);
+gulp.task("build", [/*"lint",*/ "webpack:build"]);
 //gulp.task('build', ['partials', 'lint', 'webpack:build']);
 
 gulp.task("webpack:build", function(callback) {

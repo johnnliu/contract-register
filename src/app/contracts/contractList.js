@@ -13,45 +13,45 @@ function ContractListController($scope, $element, $attrs, contractService, $comp
     // This would be loaded by $http etc.
     $ctrl.source = null;
     $ctrl.openFormWindow = openFormWindow;
+    $ctrl.refresh = refresh;
 
     activate();
 
 
 
     function activate() {
-
         $ctrl.source = new kendo.data.DataSource({
             data: [],
             pageSize: 20
         });
+        $ctrl.gridOptions = {
+            dataSource: $ctrl.source,
+            sortable: true,
+            columns: [
+                {
+                    field: "Title",
+                    title: "Title",
+                    template: function () {
+                        return '<a ng-click="$ctrl.openFormWindow(dataItem)">{{dataItem.Title}}</a>';
+                    }
+                }, {
+                    field: "ThirdPartyOrganisationName",
+                    title: "Organisation"
+                },
+                {
+                    command: ["edit", "destroy"],
+                    title: ""
+                }
+            ]
+        };
 
+        $ctrl.refresh();
+    }
+
+    function refresh() {
         contractService.getItems().then(function (items) {
             $ctrl.source.data(items);
-
-            $ctrl.gridOptions = {
-                dataSource: $ctrl.source,
-                sortable: true,
-                columns: [
-                    {
-                        field: "Title",
-                        title: "Title",
-                        template: function () {
-                            return '<a ng-click="$ctrl.openFormWindow(dataItem)">{{dataItem.Title}}</a>';
-                        }
-                    }, {
-                        field: "Organisation",
-                        title: "Organisation"
-                    },
-                    {
-                        command: ["edit", "destroy"],
-                        title: ""
-                    }
-                ]
-            };
-
         });
-
-        // service
     }
 
     function openFormWindow(dataItem) {
@@ -83,6 +83,7 @@ function ContractListController($scope, $element, $attrs, contractService, $comp
         windowInstance.result.then(function (result) {
             if (result) {
                 $scope.result = 'confirmed!';
+                $ctrl.refresh();
             }
             else {
                 $scope.result = 'canceled!';

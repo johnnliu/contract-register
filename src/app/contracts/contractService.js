@@ -33,14 +33,28 @@ function ContractService($q, $timeout) {
 
     function getItem(id) {
         return $q(function (resolve, reject) {
-            pnp.sp.web.lists.getByTitle("Heroes").items().getById(id).then(function (result) {
-
-            });
+            // https://blogs.msdn.microsoft.com/patrickrodgers/2016/06/28/pnp-jscore-1-0-2/
+            pnp.sp.web.lists.getByTitle("ContractRegister").items.getById(id).get().then(function (result) {
+                resolve(result);
+            }, reject);
         });
     }
 
-    function updateItem(contract) {
+    function updateItem(item) {
+        return $q(function (resolve, reject) {
 
+            var properties = {
+                Title: item.Title,
+                ThirdPartyOrganisationName: item.ThirdPartyOrganisationName
+            };
+
+            var etag = item['odata.etag'] || '*';
+
+            // https://blogs.msdn.microsoft.com/patrickrodgers/2016/06/06/pnp-js-library-1-0-0/
+            pnp.sp.web.lists.getByTitle("ContractRegister").items.getById(item.Id).update(properties, etag).then(function (itemUpdateResult) {
+                resolve(itemUpdateResult.item);
+            }, reject);
+        });
     }
 
     function getList() {
