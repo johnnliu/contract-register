@@ -22,6 +22,7 @@
     "gulp-angular-templatecache": "^2.0.0",
     "gulp-htmlmin": "^2.0.0",
     "gulp-insert": "^0.5.0",
+    "gulp-spsave": "^2.0.2",
     "gulp-spsync-creds": "^2.2.1",
     "gulp-tslint": "^4.3.2",
     "gulp-typescript": "^2.11.0",
