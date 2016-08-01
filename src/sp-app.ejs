@@ -1,6 +1,38 @@
-<!-- the styles may also be loaded with webpack, but we are not -->
-<link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.607/styles/kendo.common-office365.min.css" />
-<link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.607/styles/kendo.office365.min.css" />
+<!-- 
+The styles and script from externals may also be loaded with webpack, but we include them from kendo CDN with local fallback to site assets. 
+http://docs.telerik.com/kendo-ui/intro/installation/cdn-service
+-->
+
+<link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.714/styles/kendo.common-office365.min.css" />
+<link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.714/styles/kendo.office365.min.css" />
+<script src="//kendo.cdn.telerik.com/2016.2.714/js/jquery.min.js"></script>
+<script>
+    if (typeof jQuery == "undefined") {
+        // fallback to local jQuery
+        document.write(decodeURIComponent('%3Cscript src="../SiteAssets/jquery.min.js" %3E%3C/script%3E'));
+    }
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+<script>
+    if (typeof angular == "undefined") {
+        document.write(decodeURIComponent('%3Cscript src="../SiteAssets/angular.js" %3E%3C/script%3E'));
+    }
+</script>
+<script src="//kendo.cdn.telerik.com/2016.2.714/js/kendo.all.min.js"></script>
+<script>
+    if (typeof kendo == "undefined") {
+        // checking for loaded CSS files is cumbersome,
+        // that's why we assume that if the scripts have failed, so have the stylesheets
+
+        // fallback to local Kendo UI stylesheets
+        document.write(decodeURIComponent('%3Clink rel="stylesheet" href="../SiteAssets/kendo.common.min.css" %3C/%3E'));
+        document.write(decodeURIComponent('%3Clink rel="stylesheet" href="../SiteAssets/kendo.blueopal.min.css" %3C/%3E'));
+
+        // fallback to local Kendo UI scripts
+        document.write(decodeURIComponent('%3Cscript src="../SiteAssets/kendo.all.min.js" %3E%3C/script%3E'));
+        // also add kendo.aspnetmvc.min.js or kendo.timezones.min.js, if needed
+    }
+</script>
 
 <% if (htmlWebpackPlugin.options.window) { %>
 <script>

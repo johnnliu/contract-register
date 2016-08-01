@@ -1,10 +1,9 @@
-
-
 module.exports = ContractService;
 
 var pnp = require('sp-pnp-js');
 
 ContractService.$inject = ['$q', '$timeout'];
+
 function ContractService($q, $timeout) {
     var self = this;
 
@@ -16,8 +15,6 @@ function ContractService($q, $timeout) {
     function getItems() {
         var deferred = $q.defer();
 
-        // replace with pnp.sp.core
-
         getList().then(function (list) {
             list.items.get().then(function (items) {
                 deferred.resolve(items);
@@ -27,14 +24,19 @@ function ContractService($q, $timeout) {
         return deferred.promise;
     }
 
-    function newItem() {
-
+    function newItem(item) {
+        return $q(function (resolve, reject) {
+            //http://officedev.github.io/PnP-JS-Core/classes/_sharepoint_rest_items_.items.html#add
+            pnp.sp.web.lists.getByTitle('ContractRegister').items.add(item).then(function (newItemResult) {
+                resolve(newItemResult.item);
+            }, reject);
+        });
     }
 
     function getItem(id) {
         return $q(function (resolve, reject) {
             // https://blogs.msdn.microsoft.com/patrickrodgers/2016/06/28/pnp-jscore-1-0-2/
-            pnp.sp.web.lists.getByTitle("ContractRegister").items.getById(id).get().then(function (result) {
+            pnp.sp.web.lists.getByTitle('ContractRegister').items.getById(id).get().then(function (result) {
                 resolve(result);
             }, reject);
         });
@@ -43,15 +45,10 @@ function ContractService($q, $timeout) {
     function updateItem(item) {
         return $q(function (resolve, reject) {
 
-            var properties = {
-                Title: item.Title,
-                ThirdPartyOrganisationName: item.ThirdPartyOrganisationName
-            };
-
             var etag = item['odata.etag'] || '*';
 
             // https://blogs.msdn.microsoft.com/patrickrodgers/2016/06/06/pnp-js-library-1-0-0/
-            pnp.sp.web.lists.getByTitle("ContractRegister").items.getById(item.Id).update(properties, etag).then(function (itemUpdateResult) {
+            pnp.sp.web.lists.getByTitle('ContractRegister').items.getById(item.Id).update(item, etag).then(function (itemUpdateResult) {
                 resolve(itemUpdateResult.item);
             }, reject);
         });
@@ -59,7 +56,7 @@ function ContractService($q, $timeout) {
 
     function getList() {
         return $q(function (resolve, reject) {
-            pnp.sp.web.lists.ensure("ContractRegister", "").then(function (result) {
+            pnp.sp.web.lists.ensure('ContractRegister', '').then(function (result) {
                 if (result.created) {
                     setupContractRegister(result.list).then(function (list) {
                         resolve(list);
@@ -93,9 +90,37 @@ function ContractService($q, $timeout) {
             ]).then(function () {
                 // add some demo entries
                 $q.all([
-                    list.items.add({ Title: "Superman", 'ThirdPartyOrganisationName': 'Krypton' }),
-                    list.items.add({ Title: "Batman", 'ThirdPartyOrganisationName': 'WayneCorp' }),
-                    list.items.add({ Title: "Captain Kirk", 'ThirdPartyOrganisationName': 'Starfleet' })
+                    list.items.add({'Title': 'SAA-001', 
+                                    'ThirdPartyContactFullName':'Superman', 
+                                    'ThirdPartyOrganisationName': 'Krypton', 
+                                    'ThirdPartyContactEmail':'super@man.com', 
+                                    'SystemName': 'Daily Planet Archive',
+                                    'InformationDescription':'',
+                                    'InformationSensitivity': 3,
+                                    //Need to append Id to internal name
+                                    'InternalOwnerId': _spPageContextInfo.userId, 
+                                    'ContractStartDate':'2016-01-01' , 
+                                    'ContractEndDate':'2016-03-01' }),
+                    list.items.add({'Title': 'SAA-002', 
+                                    'ThirdPartyContactFullName':'Batman', 
+                                    'ThirdPartyOrganisationName': 'WayneCorp',
+                                    'ThirdPartyContactEmail':'bat@man.com', 
+                                    'SystemName': 'Surveillance System', 
+                                    'InformationDescription': 'City-wide surveillance system created through high-frequency sonar signals captured from millions of cell phones, the power to visualize the locations of criminals throughout the city of Gotham. ', 
+                                    'InformationSensitivity': 5,
+                                    'InternalOwnerId': _spPageContextInfo.userId, 
+                                    'ContractStartDate':'2015-08-01' , 
+                                    'ContractEndDate':'2017-08-01' }),
+                    list.items.add({'Title': 'SAA-003', 
+                                    'ThirdPartyContactFullName':'Captain Kirk', 
+                                    'ThirdPartyOrganisationName': 'Starfleet', 
+                                    'SystemName': '',
+                                    'InformationDescription':'',
+                                    'InformationSensitivity': 1,
+                                    'InternalOwnerId': _spPageContextInfo.userId,
+                                    'ContractStartDate':'2015-08-01' , 
+                                    'ContractEndDate':'2017-08-01' 
+                                })
                 ]).then(function () {
                     //resolve the list like it has always been there.. 
                     resolve(list);

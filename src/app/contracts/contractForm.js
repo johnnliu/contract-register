@@ -12,7 +12,18 @@ ContractFormController.$inject = ['$scope', '$element', '$attrs', 'contractServi
 function ContractFormController($scope, $element, $attrs, contractService) {
   var $ctrl = this;
 
-  $ctrl.item = null;
+  $ctrl.item = {
+            'Title': 'SAA', 
+            'ThirdPartyContactFullName':'', 
+            'ThirdPartyOrganisationName': '', 
+            'ThirdPartyContactEmail':'', 
+            'SystemName': '',
+            'InformationDescription':'',
+            'InformationSensitivity': 0,
+            'InternalOwnerId': null, 
+            'ContractStartDate': null, 
+            'ContractEndDate':null 
+        };
 
   $ctrl.activate = activate;
   $ctrl.validate = validate;
@@ -23,11 +34,12 @@ function ContractFormController($scope, $element, $attrs, contractService) {
   activate();
 
   function activate() {
-    //TODO
-    contractService.getItem($ctrl.contractid).then(function (item) {
-      $ctrl.item = item;
-
-    });
+    //ID is known get item refresh
+    if($ctrl.contractid){
+        contractService.getItem($ctrl.contractid).then(function (item) {
+            $ctrl.item = item;
+        });
+    }
   }
 
   function validate(event) {
@@ -45,11 +57,18 @@ function ContractFormController($scope, $element, $attrs, contractService) {
 
   function save() {
     if ($ctrl.validator.validate()) {
-      //TODO
-      contractService.updateItem($ctrl.item).then(function(item){
-        
-        $ctrl.close();
-      });
+      //ID is known update item
+      if($ctrl.contractid){
+        contractService.updateItem($ctrl.item).then(function(item){
+          $ctrl.close();
+        });
+      }
+      else{
+        //no ID add as new item
+        contractService.newItem($ctrl.item).then(function(item){
+          $ctrl.close();
+        });
+      }
     }
     else {
       $ctrl.validationMessage = "There is invalid data in the form.";
