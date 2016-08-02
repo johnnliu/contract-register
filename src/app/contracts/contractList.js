@@ -6,8 +6,8 @@ module.exports = {
 var $ = require('jquery');
 var ContractForm = require('./contractForm');
 
-ContractListController.$inject = ['$scope', '$element', '$attrs', 'contractService', '$compile', '$kWindow'];
-function ContractListController($scope, $element, $attrs, contractService, $compile, $kWindow) {
+ContractListController.$inject = ['$scope', '$element', '$attrs', 'contractService', '$kWindow'];
+function ContractListController($scope, $element, $attrs, contractService, $kWindow) {
     var $ctrl = this;
 
     $ctrl.source = null;
@@ -116,7 +116,6 @@ function ContractListController($scope, $element, $attrs, contractService, $comp
             controller: ['contractid', function (contractid) {
                 var $ctrl = this;
                 $ctrl.contractid = contractid;
-                //$ctrl.modalData = modalData;
             }],
             controllerAs: '$ctrl',
             resolve: {

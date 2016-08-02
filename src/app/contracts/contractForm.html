@@ -7,7 +7,7 @@
             <legend>Contract Details</legend>
             <p class="forms">
                 <label>Contract Type</label>
-                <select kendo-drop-down-list style="width: 100%;" g-model="$ctrl.item.Title">
+                <select kendo-drop-down-list style="width: 100%;" ng-model="$ctrl.item.Title">
                     <option value="SAA" selected>System Access Agreement</option>
                     <option value="NDA">Non Disclosure Agreement</option>
                 </select>
@@ -29,7 +29,7 @@
                 <input kendo-date-picker ng-model="$ctrl.item.ContractEndDate" required style="width: 100%;"> </input>
             </p>
         </fieldset>
-<br />
+        <br />
         <fieldset>
             <legend>Third Party Details</legend>
             <p class="forms">
@@ -42,10 +42,11 @@
             </p>
             <p>
                 <label for="email" class="required">Email</label>
-                <input type="email" id="email" name="Email" class="k-textbox" placeholder="e.g. myname@example.net" ng-model="$ctrl.item.ThirdPartyContactEmail" required data-email-msg="Email format is not valid" style="width: 100%;" />
+                <input type="email" id="email" name="Email" class="k-textbox" placeholder="e.g. myname@example.net" ng-model="$ctrl.item.ThirdPartyContactEmail"
+                    required data-email-msg="Email format is not valid" style="width: 100%;" />
             </p>
         </fieldset>
-<br />
+        <br />
         <fieldset>
             <legend>Internal Details</legend>
             <p class="forms">

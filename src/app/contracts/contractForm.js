@@ -13,19 +13,18 @@ function ContractFormController($scope, $element, $attrs, contractService) {
   var $ctrl = this;
 
   $ctrl.item = {
-            'Title': 'SAA', 
-            'ThirdPartyContactFullName':'', 
-            'ThirdPartyOrganisationName': '', 
-            'ThirdPartyContactEmail':'', 
-            'SystemName': '',
-            'InformationDescription':'',
-            'InformationSensitivity': 0,
-            'InternalOwnerId': null, 
-            'ContractStartDate': null, 
-            'ContractEndDate':null 
-        };
+    'Title': 'SAA',
+    'ThirdPartyContactFullName': '',
+    'ThirdPartyOrganisationName': '',
+    'ThirdPartyContactEmail': '',
+    'SystemName': '',
+    'InformationDescription': '',
+    'InformationSensitivity': 0,
+    'InternalOwnerId': null,
+    'ContractStartDate': null,
+    'ContractEndDate': null
+  };
 
-  $ctrl.activate = activate;
   $ctrl.validate = validate;
   $ctrl.dismiss = dismiss;
   $ctrl.close = close;
@@ -35,10 +34,10 @@ function ContractFormController($scope, $element, $attrs, contractService) {
 
   function activate() {
     //ID is known get item refresh
-    if($ctrl.contractid){
-        contractService.getItem($ctrl.contractid).then(function (item) {
-            $ctrl.item = item;
-        });
+    if ($ctrl.contractid) {
+      contractService.getItem($ctrl.contractid).then(function (item) {
+        $ctrl.item = item;
+      });
     }
   }
 
@@ -56,23 +55,22 @@ function ContractFormController($scope, $element, $attrs, contractService) {
   }
 
   function save() {
-    if ($ctrl.validator.validate()) {
-      //ID is known update item
-      if($ctrl.contractid){
-        contractService.updateItem($ctrl.item).then(function(item){
-          $ctrl.close();
-        });
-      }
-      else{
-        //no ID add as new item
-        contractService.newItem($ctrl.item).then(function(item){
-          $ctrl.close();
-        });
-      }
-    }
-    else {
+    if (!$ctrl.validator.validate()) {
       $ctrl.validationMessage = "There is invalid data in the form.";
       $ctrl.validationClass = "invalid";
+      return;
+    }
+    //ID is known update item
+    if ($ctrl.contractid) {
+      contractService.updateItem($ctrl.item).then(function (item) {
+        $ctrl.close();
+      });
+    }
+    else {
+      //no ID add as new item
+      contractService.newItem($ctrl.item).then(function (item) {
+        $ctrl.close();
+      });
     }
   }
 
@@ -80,7 +78,6 @@ function ContractFormController($scope, $element, $attrs, contractService) {
     $ctrl.$close({
       result: 'save'
     });
-
   }
 
   function dismiss() {
