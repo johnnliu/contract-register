@@ -3,8 +3,7 @@ module.exports = {
     controller: ContractListController
 };
 
-var $ = require('jquery');
-var ContractForm = require('./contractForm');
+var kendo = require('kendo');
 
 ContractListController.$inject = ['$scope', '$element', '$attrs', 'contractService', '$kWindow'];
 function ContractListController($scope, $element, $attrs, contractService, $kWindow) {
@@ -22,17 +21,17 @@ function ContractListController($scope, $element, $attrs, contractService, $kWin
         $ctrl.source = new kendo.data.DataSource({
             data: [],
             schema: {
-                    model: {
-                        fields: {
-                            Title: { type: 'string' },
-                            SystemName: { type: 'string' },
-                            ThirdPartyContactFullName: { type: 'string' },
-                            ThirdPartyOrganisationName: { type: 'string' },
-                            ContractStartDate: { type: 'date' },
-                            ContractEndDate: { type: 'date' }
-                        }
+                model: {
+                    fields: {
+                        Title: { type: 'string' },
+                        SystemName: { type: 'string' },
+                        ThirdPartyContactFullName: { type: 'string' },
+                        ThirdPartyOrganisationName: { type: 'string' },
+                        ContractStartDate: { type: 'date' },
+                        ContractEndDate: { type: 'date' }
                     }
                 }
+            }
         });
         $ctrl.gridOptions = {
             dataSource: $ctrl.source,
@@ -43,11 +42,11 @@ function ContractListController($scope, $element, $attrs, contractService, $kWin
                 {
                     field: 'Title',
                     title: 'Contract No',
-                    filterable:false,
+                    filterable: false,
                     template: function () {
                         return '<a ng-click="$ctrl.openFormWindow(dataItem)">{{dataItem.Title}}</a>';
                     }
-                }, 
+                },
                 {
                     field: 'SystemName',
                     title: 'System Name',
@@ -66,28 +65,28 @@ function ContractListController($scope, $element, $attrs, contractService, $kWin
                 {
                     field: 'ContractStartDate',
                     title: 'Start Date',
-                    template: "#= kendo.toString(new Date(ContractStartDate), 'dd-MM-yyyy') #",
+                    template: '#= kendo.toString(new Date(ContractStartDate), \'dd-MM-yyyy\') #',
                     type: 'date'
                 },
                 {
                     field: 'ContractEndDate',
                     title: 'End Date',
-                    template: "#= kendo.toString(new Date(ContractEndDate), 'dd-MM-yyyy') #",
+                    template: '#= kendo.toString(new Date(ContractEndDate), \'dd-MM-yyyy\') #',
                     type: 'date'
                 },
                 {
                     command: ['edit', 'destroy'],
                     title: '',
-                    filterable:false,
-                    sortable:false
+                    filterable: false,
+                    sortable: false
                 }
             ],
             toolbar: [
-            {
-              name: "add",
-              text: "New Contract",
-              template: '<a ng-click="$ctrl.newContract()" class="k-button k-button-icontext k-grid-add" href="\\#">New Contract</a>'	
-            }]
+                {
+                    name: 'add',
+                    text: 'New Contract',
+                    template: '<a ng-click="$ctrl.newContract()" class="k-button k-button-icontext k-grid-add" href="\\#">New Contract</a>'
+                }]
         };
 
         $ctrl.refresh();
@@ -99,8 +98,8 @@ function ContractListController($scope, $element, $attrs, contractService, $kWin
         });
     }
 
-    function newContract(){
-        openFormWindow({Title:'New Contract', Id:null});
+    function newContract() {
+        openFormWindow({ Title: 'New Contract', Id: null });
     }
 
     function openFormWindow(dataItem) {

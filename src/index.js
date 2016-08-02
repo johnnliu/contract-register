@@ -1,7 +1,7 @@
-var $ = require('jquery');
+require('jquery');
 var angular = require('angular');
-var kendo = require('kendo');
-var angularKendoWindow = require('../lib/angular-kendo-window.js');
+require('kendo');
+require('../lib/angular-kendo-window.js');
 var ContractService = require('./app/contracts/contractService');
 var App = require('./app/containers/App');
 var ContractList = require('./app/contracts/contractList');

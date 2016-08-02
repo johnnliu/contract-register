@@ -1,10 +1,11 @@
 module.exports = ContractService;
 
 var pnp = require('sp-pnp-js');
+var _spPageContextInfo = require('_spPageContextInfo');
 
-ContractService.$inject = ['$q', '$timeout'];
+ContractService.$inject = ['$q'];
 
-function ContractService($q, $timeout) {
+function ContractService($q) {
     var self = this;
 
     self.getItems = getItems;
@@ -19,7 +20,7 @@ function ContractService($q, $timeout) {
             list.items.get().then(function (items) {
                 deferred.resolve(items);
             });
-        })
+        });
 
         return deferred.promise;
     }

@@ -62,13 +62,13 @@ function ContractFormController($scope, $element, $attrs, contractService) {
     }
     //ID is known update item
     if ($ctrl.contractid) {
-      contractService.updateItem($ctrl.item).then(function (item) {
+      contractService.updateItem($ctrl.item).then(function () {
         $ctrl.close();
       });
     }
     else {
       //no ID add as new item
-      contractService.newItem($ctrl.item).then(function (item) {
+      contractService.newItem($ctrl.item).then(function () {
         $ctrl.close();
       });
     }
