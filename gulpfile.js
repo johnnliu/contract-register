@@ -7,7 +7,10 @@ let gulp = require("gulp"),
     server = require("webpack-dev-server"),
     config = require("./webpack.config.js"),
 	o365 = require("./o365-user.js"),
-	spsave = require('gulp-spsave');
+	spsave = require('gulp-spsave'),
+	browserSync = require('browser-sync').create();
+
+gulp.task("build", ["lint", "webpack:build"]);
 
 gulp.task("lint", () => {
 	return gulp.src("./src/**/*.js")
@@ -15,25 +18,10 @@ gulp.task("lint", () => {
 		.pipe(eslint.format());
 });
 
-gulp.task("build", ["lint", "webpack:build"]);
-
-gulp.task("webpack:build", function(callback) {
-	// modify some webpack config options
-	var buildConfig = Object.create(config);
-	buildConfig.plugins = buildConfig.plugins.concat(
-		new webpack.DefinePlugin({
-			"process.env": {
-				// This has effect on the react lib size
-				"NODE_ENV": JSON.stringify("production")
-			}
-		}),
-		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.UglifyJsPlugin()
-	);
-
+gulp.task("webpack:build", function (callback) {
 	// run webpack
-	webpack(buildConfig, function(err, stats) {
-		if(err) throw new gutil.PluginError("webpack:build", err);
+	webpack(config, function (err, stats) {
+		if (err) throw new gutil.PluginError("webpack:build", err);
 		gutil.log("[webpack:build]", stats.toString({
 			colors: true
 		}));
@@ -41,17 +29,33 @@ gulp.task("webpack:build", function(callback) {
 	});
 });
 
-gulp.task("deploy", ["webpack:build"], function(){
+gulp.task("deploy", ["webpack:build"], function () {
 
-	gulp.src('./dist/SiteAssets/**/*')
-	.pipe(
-		spsave({
+	return gulp.src('./dist/SiteAssets/**/*')
+		.pipe(spsave({
 			"username": o365.username,
-    		"password": o365.password,
-    		"siteUrl": o365.site,
-			"folder": 'SiteAssets' 
+			"password": o365.password,
+			"siteUrl": o365.site,
+			"folder": 'SiteAssets'
 		}));
+});
 
+gulp.task("serve", function () {
+    browserSync.init({
+/*
+        server: {
+            baseDir: "./dist/"
+        }
+*/
+		https: true
+    });
+
+	gulp.watch("./dist/**/*.js", ['js-watch']);
+});
+
+gulp.task("js-watch", ["deploy"], function (done) {
+    browserSync.reload();
+    done();
 });
 
 // modify some webpack config options
@@ -62,10 +66,10 @@ devConfig.debug = true;
 // create a single instance of the compiler to allow caching
 var devCompiler = webpack(devConfig);
 
-gulp.task("webpack:build-dev", function(callback) {
+gulp.task("webpack:build-dev", function (callback) {
 	// run webpack
-	devCompiler.run(function(err, stats) {
-		if(err) throw new gutil.PluginError("webpack:build-dev", err);
+	devCompiler.run(function (err, stats) {
+		if (err) throw new gutil.PluginError("webpack:build-dev", err);
 		gutil.log("[webpack:build-dev]", stats.toString({
 			colors: true
 		}));

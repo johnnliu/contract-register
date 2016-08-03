@@ -30,7 +30,7 @@ function ContractService($q) {
             //http://officedev.github.io/PnP-JS-Core/classes/_sharepoint_rest_items_.items.html#add
             pnp.sp.web.lists.getByTitle('ContractRegister').items.add(item).then(function (newItemResult) {
                 resolve(newItemResult.item);
-            }, reject);
+            }).catch(reject);
         });
     }
 
@@ -39,7 +39,7 @@ function ContractService($q) {
             // https://blogs.msdn.microsoft.com/patrickrodgers/2016/06/28/pnp-jscore-1-0-2/
             pnp.sp.web.lists.getByTitle('ContractRegister').items.getById(id).get().then(function (result) {
                 resolve(result);
-            }, reject);
+            }).catch(reject);
         });
     }
 
@@ -51,7 +51,7 @@ function ContractService($q) {
             // https://blogs.msdn.microsoft.com/patrickrodgers/2016/06/06/pnp-js-library-1-0-0/
             pnp.sp.web.lists.getByTitle('ContractRegister').items.getById(item.Id).update(item, etag).then(function (itemUpdateResult) {
                 resolve(itemUpdateResult.item);
-            }, reject);
+            }).catch(reject);
         });
     }
 
@@ -65,7 +65,7 @@ function ContractService($q) {
                 } else {
                     resolve(result.list);
                 }
-            });
+            }).catch(reject);
         });
     }
 
@@ -126,7 +126,7 @@ function ContractService($q) {
                     //resolve the list like it has always been there.. 
                     resolve(list);
                 });
-            });
+            }).catch(reject);
 
             batch1.execute();
 

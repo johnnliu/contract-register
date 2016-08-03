@@ -7,7 +7,7 @@ module.exports = {
   cache: true,
   entry: {
     app: ['./src/index.js'],
-    vendor: ['es6-promise', 'whatwg-fetch', 'jquery', 'angular', 'kendo', 'sp-pnp-js' /*, 'kendo/css/web/kendo.common-office365.css', 'kendo/css/web/kendo.office365.css'*/]
+    vendor: ['es6-promise', 'whatwg-fetch', 'jquery', 'angular', 'kendo', 'sp-pnp-js', './lib/angular-kendo-window.js' /*, 'kendo/css/web/kendo.common-office365.css', 'kendo/css/web/kendo.office365.css'*/]
   },
   output: {
     path: path.join(__dirname, 'dist/SiteAssets'),
@@ -26,14 +26,16 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.js'),
+    /*
     new webpack.ProvidePlugin({
       'window.jQuery': 'jquery'
     }),
+    */
     new HtmlWebpackPlugin({
       filename: 'SPApp.html',
       template: './src/sp-app.ejs',
       inject: false
-    })
+    }),
     /*
     new webpack.SourceMapDevToolPlugin({
       //filename: '[file].map',
@@ -42,6 +44,8 @@ module.exports = {
       //module: true // true // use SourceMaps from loaders 
     })
     */
+		new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
     loaders: [
@@ -53,4 +57,4 @@ module.exports = {
     ]
   },
   devtool: 'source-map'
-}
+};
