@@ -2,14 +2,20 @@
 
 let gulp = require("gulp"),
 	gutil = require("gulp-util"),
-    tslint = require("gulp-tslint"),
+    eslint = require("gulp-eslint"),
     webpack = require('webpack'),
     server = require("webpack-dev-server"),
     config = require("./webpack.config.js"),
 	o365 = require("./o365-user.js"),
-	spsync = require('gulp-spsync-creds').sync;
+	spsave = require('gulp-spsave');
 
-gulp.task("build", ["webpack:build"]);
+gulp.task("lint", () => {
+	return gulp.src("./src/**/*.js")
+		.pipe(eslint())
+		.pipe(eslint.format());
+});
+
+gulp.task("build", ["lint", "webpack:build"]);
 
 gulp.task("webpack:build", function(callback) {
 	// modify some webpack config options
@@ -32,17 +38,18 @@ gulp.task("webpack:build", function(callback) {
 			colors: true
 		}));
 		callback();
-	})
+	});
 });
 
 gulp.task("deploy", ["webpack:build"], function(){
 
-	gulp.src('./dist/**/*')
+	gulp.src('./dist/SiteAssets/**/*')
 	.pipe(
-		spsync({
+		spsave({
 			"username": o365.username,
     		"password": o365.password,
-    		"site": o365.site 
+    		"siteUrl": o365.site,
+			"folder": 'SiteAssets' 
 		}));
 
 });

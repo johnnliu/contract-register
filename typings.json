@@ -2,9 +2,19 @@
     "dependencies": {},
     "devDependencies": {},
     "globalDevDependencies": {
+        "gulp": "registry:dt/gulp#3.8.0+20160724062653",
+        "gulp-htmlmin": "registry:dt/gulp-htmlmin#1.3.0+20160316155526",
+        "gulp-insert": "registry:dt/gulp-insert#0.5.0+20160719232327",
+        "gulp-tslint": "registry:dt/gulp-tslint#3.6.0+20160316155526",
+        "gulp-typescript": "registry:dt/gulp-typescript#0.0.0+20160317120654",
+        "gulp-watch": "registry:dt/gulp-watch#4.1.1+20160316155526",
+        "typescript": "registry:dt/typescript#0.4.0+20160317120654",
+        "webpack-stream": "registry:dt/webpack-stream#3.2.0+20160728140255",
         "whatwg-fetch": "github:DefinitelyTyped/DefinitelyTyped/whatwg-fetch/whatwg-fetch.d.ts#9027703c0bd831319dcdf7f3169f7a468537f448"
     },
     "globalDependencies": {
-        "jquery": "registry:dt/jquery#1.10.0+20160417213236"
+        "angular": "registry:dt/angular#1.5.0+20160802133750",
+        "jquery": "registry:dt/jquery#1.10.0+20160704162008",
+        "kendo-ui": "registry:dt/kendo-ui#2016.1.314+20160724063859"
     }
 }

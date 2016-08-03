@@ -21,6 +21,7 @@ module.exports = {
     'jquery': 'jQuery',
     'angular': 'angular',
     'kendo': 'kendo',
+    '_spPageContextInfo': '_spPageContextInfo',
     'node-fetch': '{}'
   },
   plugins: [
