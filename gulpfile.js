@@ -40,17 +40,20 @@ gulp.task("deploy", ["webpack:build"], function () {
 		}));
 });
 
-gulp.task("serve", function () {
+gulp.task("serve", ["deploy"], function () {
     browserSync.init({
-		/*
-				server: {
-					baseDir: "./dist/"
+		proxy: {
+			target: o365.site,
+			proxyRes: [
+				function (proxyRes, req, res) {
+					console.log(proxyRes.headers);
 				}
-		*/
+			]
+		},
 		https: true
     });
 
-	gulp.watch("./dist/**/*.js", ['js-watch']);
+	gulp.watch("./src/**/*.js", ['js-watch']);
 });
 
 gulp.task("js-watch", ["deploy"], function (done) {

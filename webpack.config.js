@@ -11,7 +11,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist/SiteAssets'),
-    publicPath: '../SiteAssets/',
+    publicPath: '/',
     filename: '[name].js'
   },
   resolve: {
@@ -26,26 +26,13 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.js'),
-    /*
-    new webpack.ProvidePlugin({
-      'window.jQuery': 'jquery'
-    }),
-    */
     new HtmlWebpackPlugin({
-      filename: 'SPApp.html',
+      filename: 'index.html',
       template: './src/sp-app.ejs',
       inject: false
     }),
-    /*
-    new webpack.SourceMapDevToolPlugin({
-      //filename: '[file].map',
-      exclude: ['vendor.js'],
-      //columns: false, // no columns in SourceMaps
-      //module: true // true // use SourceMaps from loaders 
-    })
-    */
-		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
     loaders: [
