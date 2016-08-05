@@ -1,4 +1,5 @@
 /node_modules/*
 o365-*.js
+user.js
 /typings/*
 /dist/*
