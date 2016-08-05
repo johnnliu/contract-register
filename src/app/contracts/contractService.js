@@ -1,8 +1,12 @@
 module.exports = ContractService;
 
+//We use PnP for all SharePoint
 var pnp = require('sp-pnp-js');
+
+//added here and as webpack external to prevent compile warnings
 var _spPageContextInfo = require('_spPageContextInfo');
 
+//Angular promises
 ContractService.$inject = ['$q'];
 
 function ContractService($q) {
@@ -14,21 +18,19 @@ function ContractService($q) {
     self.updateItem = updateItem;
 
     function getItems() {
-        var deferred = $q.defer();
-
-        getList().then(function (list) {
-            list.items.get().then(function (items) {
-                deferred.resolve(items);
-            });
+        return $q(function(resolve,reject){
+            getList().then(function (list) {
+                list.items.get().then(function (items) {
+                    resolve(items);
+                });
+            }).catch(reject);
         });
-
-        return deferred.promise;
     }
 
     function newItem(item) {
         return $q(function (resolve, reject) {
             //http://officedev.github.io/PnP-JS-Core/classes/_sharepoint_rest_items_.items.html#add
-            pnp.sp.web.lists.getByTitle('ContractRegister').items.add(item).then(function (newItemResult) {
+            getList().items.add(item).then(function (newItemResult) {
                 resolve(newItemResult.item);
             }).catch(reject);
         });
@@ -37,7 +39,7 @@ function ContractService($q) {
     function getItem(id) {
         return $q(function (resolve, reject) {
             // https://blogs.msdn.microsoft.com/patrickrodgers/2016/06/28/pnp-jscore-1-0-2/
-            pnp.sp.web.lists.getByTitle('ContractRegister').items.getById(id).get().then(function (result) {
+            getList().items.getById(id).get().then(function (result) {
                 resolve(result);
             }).catch(reject);
         });
@@ -49,7 +51,7 @@ function ContractService($q) {
             var etag = item['odata.etag'] || '*';
 
             // https://blogs.msdn.microsoft.com/patrickrodgers/2016/06/06/pnp-js-library-1-0-0/
-            pnp.sp.web.lists.getByTitle('ContractRegister').items.getById(item.Id).update(item, etag).then(function (itemUpdateResult) {
+            getList().items.getById(item.Id).update(item, etag).then(function (itemUpdateResult) {
                 resolve(itemUpdateResult.item);
             }).catch(reject);
         });
