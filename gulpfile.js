@@ -43,12 +43,7 @@ gulp.task("deploy", ["webpack:build"], function () {
 gulp.task("serve", ["deploy"], function () {
     browserSync.init({
 		proxy: {
-			target: o365.site,
-			proxyRes: [
-				function (proxyRes, req, res) {
-					console.log(proxyRes.headers);
-				}
-			]
+			target: o365.site
 		},
 		https: true
     });
