@@ -6,7 +6,7 @@ let gulp = require("gulp"),
     webpack = require('webpack'),
     server = require("webpack-dev-server"),
     config = require("./webpack.config.js"),
-	o365 = require("./o365-user.js"),
+	o365 = require("./o365.js"),
 	spsave = require('gulp-spsave'),
 	browserSync = require('browser-sync').create();
 
@@ -30,7 +30,7 @@ gulp.task("webpack:build", function (callback) {
 });
 
 gulp.task("deploy", ["webpack:build"], function () {
-
+	console.log(o365);
 	return gulp.src('./dist/SiteAssets/**/*')
 		.pipe(spsave({
 			"username": o365.username,
@@ -42,11 +42,11 @@ gulp.task("deploy", ["webpack:build"], function () {
 
 gulp.task("serve", function () {
     browserSync.init({
-/*
-        server: {
-            baseDir: "./dist/"
-        }
-*/
+		/*
+				server: {
+					baseDir: "./dist/"
+				}
+		*/
 		https: true
     });
 
