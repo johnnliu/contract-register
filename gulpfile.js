@@ -56,7 +56,7 @@ gulp.task("webpack:build-dev", function (callback) {
 	});
 });
 
-gulp.task("webpack:build-dev-watch", function (callback) {
+gulp.task("webpack:build-dev-watch", function () {
 	//set webpack watch
 	var devWatchConfig = Object.create(devConfig);
 	devWatchConfig.watch = true;
@@ -66,7 +66,6 @@ gulp.task("webpack:build-dev-watch", function (callback) {
 		gutil.log("[webpack:build-dev-watch]", stats.toString({
 			colors: true
 		}));
-		callback();
 	});
 });
 

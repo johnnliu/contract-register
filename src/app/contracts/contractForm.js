@@ -7,8 +7,10 @@ module.exports = {
     'contractid': '<'
   }
 };
+var kendo = require('kendo');
 
 ContractFormController.$inject = ['$scope', '$element', '$attrs', 'contractService'];
+
 function ContractFormController($scope, $element, $attrs, contractService) {
   var $ctrl = this;
 
@@ -68,8 +70,12 @@ function ContractFormController($scope, $element, $attrs, contractService) {
     }
     else {
       //no ID add as new item
-      contractService.newItem($ctrl.item).then(function () {
-        $ctrl.close();
+      contractService.newItem($ctrl.item).then(function (item) {
+        //update title with new ID
+        item.Title = item.Title + kendo.toString(item.Id, "-000");
+          contractService.updateItem(item).then(function(){
+              $ctrl.close();
+          });
       });
     }
   }
