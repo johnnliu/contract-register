@@ -30,18 +30,22 @@ function ContractService($q) {
     function newItem(item) {
         return $q(function (resolve, reject) {
             //http://officedev.github.io/PnP-JS-Core/classes/_sharepoint_rest_items_.items.html#add
-            getList().items.add(item).then(function (newItemResult) {
-                resolve(newItemResult.item);
-            }).catch(reject);
+            getList().then(function(list){
+                list.items.add(item).then(function (newItemResult) {
+                    resolve(newItemResult.data);
+                }).catch(reject);
+            });
         });
     }
 
     function getItem(id) {
         return $q(function (resolve, reject) {
             // https://blogs.msdn.microsoft.com/patrickrodgers/2016/06/28/pnp-jscore-1-0-2/
-            getList().items.getById(id).get().then(function (result) {
-                resolve(result);
-            }).catch(reject);
+            getList().then(function(list){
+                list.items.getById(id).get().then(function (result) {
+                    resolve(result);
+                }).catch(reject);
+            });
         });
     }
 
@@ -51,9 +55,11 @@ function ContractService($q) {
             var etag = item['odata.etag'] || '*';
 
             // https://blogs.msdn.microsoft.com/patrickrodgers/2016/06/06/pnp-js-library-1-0-0/
-            getList().items.getById(item.Id).update(item, etag).then(function (itemUpdateResult) {
-                resolve(itemUpdateResult.item);
-            }).catch(reject);
+            getList().then(function(list){
+                list.items.getById(item.Id).update(item, etag).then(function (itemUpdateResult) {
+                    resolve(itemUpdateResult.item);
+                }).catch(reject);
+            });
         });
     }
 
