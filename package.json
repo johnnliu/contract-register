@@ -28,6 +28,7 @@
     "gulp-insert": "^0.5.0",
     "gulp-spsave": "^2.0.2",
     "gulp-spsync-creds": "^2.2.1",
+    "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.9",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.22.0",

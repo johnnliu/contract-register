@@ -17,6 +17,7 @@ function ContractService($q) {
     self.getItem = getItem;
     self.updateItem = updateItem;
 
+    self.attachDocument = attachDocument; 
     function getItems() {
         return $q(function(resolve,reject){
             getList().then(function (list) {
@@ -30,8 +31,10 @@ function ContractService($q) {
     function newItem(item) {
         return $q(function (resolve, reject) {
             //http://officedev.github.io/PnP-JS-Core/classes/_sharepoint_rest_items_.items.html#add
-            getList().items.add(item).then(function (newItemResult) {
-                resolve(newItemResult.item);
+            getList().then(function (list) {
+                list.items.add(item).then(function (newItemResult) {
+                    resolve(newItemResult.item);
+                }).catch(reject);
             }).catch(reject);
         });
     }
@@ -39,8 +42,10 @@ function ContractService($q) {
     function getItem(id) {
         return $q(function (resolve, reject) {
             // https://blogs.msdn.microsoft.com/patrickrodgers/2016/06/28/pnp-jscore-1-0-2/
-            getList().items.getById(id).get().then(function (result) {
-                resolve(result);
+            getList().then(function (list) {
+                list.items.getById(id).get().then(function (result) {
+                    resolve(result);
+                }).catch(reject);
             }).catch(reject);
         });
     }
@@ -51,8 +56,10 @@ function ContractService($q) {
             var etag = item['odata.etag'] || '*';
 
             // https://blogs.msdn.microsoft.com/patrickrodgers/2016/06/06/pnp-js-library-1-0-0/
-            getList().items.getById(item.Id).update(item, etag).then(function (itemUpdateResult) {
-                resolve(itemUpdateResult.item);
+            getList().then(function (list) {
+                list.items.getById(item.Id).update(item, etag).then(function (itemUpdateResult) {
+                    resolve(itemUpdateResult.item);
+                }).catch(reject);
             }).catch(reject);
         });
     }
@@ -133,5 +140,19 @@ function ContractService($q) {
             batch1.execute();
 
         });
+    }
+    
+    function attachDocument(id, url, content) {
+        return $q(function (resolve, reject) {
+            //http://officedev.github.io/PnP-JS-Core/classes/_sharepoint_rest_items_.items.html#add
+            
+            // this is a tweaked pnp item 
+            pnp.sp.web.lists.getByTitle('ContractRegister').items.getById(id).attachmentFiles.
+                addAttachment(url, content).then(function () {
+                    resolve();
+                }).catch(reject);
+
+        });
+    
     }
 }
