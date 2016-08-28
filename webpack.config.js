@@ -21,8 +21,8 @@ module.exports = {
     'jquery': 'jQuery',
     'angular': 'angular',
     'kendo': 'kendo',
-    '_spPageContextInfo': '_spPageContextInfo',
-    'node-fetch': '{}'
+    '_spPageContextInfo': '_spPageContextInfo'
+    //,'node-fetch': '{}'
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.js'),
