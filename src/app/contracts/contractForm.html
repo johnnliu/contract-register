@@ -3,14 +3,6 @@
         <h1>Contract Form</h1> 
     </div>
      
-     <div style="padding-left: 3px; float:right">      
-        <button kendo-button class="k-button" ng-click="$ctrl.openUploadWindow()">Upload Signed Contract</button>
-     </div>
-     
-     <div style="float:right">      
-        <button kendo-button class="export-pdf k-button" ng-click="$ctrl.generatePdf('.pdf-page')">Generate Contract</button>
-     </div>
-     
      <div style="clear:both"></div>
 
     <form kendo-validator="$ctrl.validator" ng-submit="$ctrl.validate($event)">
@@ -68,7 +60,9 @@
         <p>
             <button kendo-button sprite-css-class="'k-icon k-i-funnel'" type="submit" ng-click="$ctrl.save()">Save</button>
             <button kendo-button icon="'funnel-clear'" type="button" ng-click="$ctrl.dismiss()">Cancel</button>
-            <button kendo-button sprite-css-class="'k-icon k-i-refresh'" type="button"><span class="k-sprite">Refresh</span></button>
+            <button kendo-button sprite-css-class="'k-icon k-i-refresh'" type="button">Refresh</button>
+            <button kendo-button sprite-css-class="'k-tool-icon k-insertFile'" ng-click="$ctrl.openUploadWindow()">Upload Signed Contract</button>
+            <button kendo-button sprite-css-class="'k-icon k-i-pdf'" ng-click="$ctrl.generatePdf('.pdf-page')">Generate Contract</button>
         </p>
 
         <p>
