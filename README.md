@@ -6,7 +6,11 @@ Contract Register sample for SharePoint Online.
 * Telerik Kendo UI
 * PnP SP Core
 * Webpack
-* Gulp
+* Gulp 
+
+## Video intro (20 seconds) 
+
+[![Contract Register YouTube](http://img.youtube.com/vi/rP8d_0MdedY/0.jpg)](http://www.youtube.com/watch?v=rP8d_0MdedY)
 
 ## Getting Started - How to run the Contract-Register demo
 
