@@ -1,5 +1,5 @@
 # contract-register
-Contract Register sample for SharePoint Online and SharePoint On-Premises
+Contract Register sample for SharePoint
 
 This is a learning, research project based on simplified client requirements, we built this project over two weeks while writing [Preparing Your Toolbox for the SharePoint Framework with Angular, Webpack and Kendo UI](http://www.telerik.com/campaigns/kendo-ui/sharepoint-framework-ui-customization-angular) (whitepaper)
 
