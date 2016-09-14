@@ -1,16 +1,30 @@
 # contract-register
 Contract Register sample for SharePoint Online.
 
+This is a learning, research project based on simplified client requirements, we built this project over two weeks while writing [Preparing Your Toolbox for the SharePoint Framework with Angular, Webpack and Kendo UI](http://www.telerik.com/campaigns/kendo-ui/sharepoint-framework-ui-customization-angular) (whitepaper)
+
 * SharePoint Online or SharePoint On-Premises
-* AngularJS
-* Telerik Kendo UI
-* PnP SP Core
-* Webpack
-* Gulp 
+* [Angular 1.5](https://docs.angularjs.org/guide/introduction)
+* [Telerik Kendo UI](http://www.telerik.com/kendo-ui/ui-for-office-365-sharepoint)
+* [PnP SP Core - Patterns and Practices JavaScript Core Library](https://github.com/OfficeDev/PnP-JS-Core/)
+* [Webpack](http://webpack.github.io/docs/what-is-webpack.html)
+* [Gulp ](http://gulpjs.com/)
 
 ## Video intro (20 seconds) 
 
 [![Contract Register YouTube](http://img.youtube.com/vi/rP8d_0MdedY/0.jpg)](http://www.youtube.com/watch?v=rP8d_0MdedY)
+
+## Features of this app
+
+ * Batch list initialization
+ * Grid binding to list
+ * Window as modal popup
+ * Validation controls
+ * PDF Export from list item
+ * Upload attachments to list item via REST
+ * WebPack bundled modules - loads extremely fast (<1 second)
+ * Target: SPO, SP2013, SP2016
+ * Future: SharePoint Framework SPFx
 
 ## Getting Started - How to run the Contract-Register demo
 
